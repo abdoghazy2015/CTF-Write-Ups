@@ -31,10 +31,14 @@ The application import some libraries like Flask , escape and render_template_st
 
 <br>
 
-![image](https://user-images.githubusercontent.com/64314534/234611740-25594be1-a173-4e42-9542-c3400257dde4.png)
 
 
 ### Second part :
+<br>
+
+![image](https://user-images.githubusercontent.com/64314534/234611740-25594be1-a173-4e42-9542-c3400257dde4.png)
+
+<br>
 
 The get route of the index is doing the following : 
 
