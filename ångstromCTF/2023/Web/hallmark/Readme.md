@@ -81,17 +81,14 @@
  -  Initate Cards  Object   
 
 <br>
-
-![image](https://user-images.githubusercontent.com/64314534/234554067-9fd25163-f06a-4309-be49-8cf67a596f15.png)
-
-<br>
-
 ### The application following the REST api workflow :
 - GET  : view something
 - POST : add something
 - PUT  : edit something
 - Delete : remove something
-<br>
+
+![image](https://user-images.githubusercontent.com/64314534/234554067-9fd25163-f06a-4309-be49-8cf67a596f15.png)
+
 
 ### We will explain each part 
 <br>
@@ -107,6 +104,7 @@
 - IF this card id is not exist it will send "bad id" as a response body
 
 <br>
+
 ![image](https://user-images.githubusercontent.com/64314534/234556298-03ae4936-2d30-429c-b630-4ccb787e21fc.png)
 
 <br>
