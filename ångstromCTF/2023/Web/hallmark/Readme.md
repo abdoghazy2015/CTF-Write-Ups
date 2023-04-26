@@ -77,7 +77,8 @@
 ### From the first part of the code you can see some interested things like 
  -  `app.use(bodyParser.urlencoded({ extended: true }));` that will allow the application to accept objects in request parameters 
  -  IMAGES Object that many files you can access is based on the key like : `IMAGES[heart]` will return the svg image : `./static/heart.svg`
- -  The IMAGES Object is freezed so no one can edit or append anything to it   
+ -  The IMAGES Object is freezed so no one can edit or append anything to it
+ -  Initate Cards  Object   
 
 <br>
 
@@ -86,8 +87,32 @@
 <br>
 
 ### The application following the REST api workflow :
-GET  : view something
-POST : add something
-PUT  : edit something
-Delete : remove something
+- GET  : view something
+- POST : add something
+- PUT  : edit something
+- Delete : remove something
+<br>
+
+### We will explain each part 
+<br>
+
+![image](https://user-images.githubusercontent.com/64314534/234554993-cf3fa6e4-ce3c-4b10-a1ac-87d98933c490.png)
+
+<br>
+
+### The GET part will do the following :
+- Check if the user provides `id` parameter `/card?id=`
+- Check if the Cards Object had this id in it's keys 
+- IF this card id exist it will return it's type as a `Content-Type` response header and it's content as a response body
+- IF this card id is not exist it will send "bad id" as a response body
+
+<br>
+![image](https://user-images.githubusercontent.com/64314534/234556298-03ae4936-2d30-429c-b630-4ccb787e21fc.png)
+
+<br>
+
+### The POST part will do the follwing :
+- Will take svg,content variables from the request body   `svg=&content` // same as the data we saw in the add card request
+- Declare the type variabe to be `text/plain` and id variable to had a UUID v4 value
+- 
 
