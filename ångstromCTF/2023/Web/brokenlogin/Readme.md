@@ -45,7 +45,7 @@ The get route of the index is doing the following :
 - get the fails variable which had the number of failed logins 
 - check if there is a parameter called message and then check if it's length is equal or greater than 25 and if this it will send the index page with the number of fails
 - if the message param's length less than 25 it will pass the message to the escape() function which will filtered it against xss then it will render the template and append the message to it in the place of string (format string) and this will cause an ssti vulnerability
-- but the flag is not in this server so , we don't need to get RCE or something 
+- but since they provide a flag so, we don't need to get RCE or something 
 
 ### Third part :
 <br>
