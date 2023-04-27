@@ -135,6 +135,33 @@ Ex : `cake: fs.readFileSync("./static/cake.svg")` so, if the `svg` parameter had
 if the value of type was `image/svg+xml`
 - IF the value of type parameter wasn't `image/svg+xml` the content will be the value of `content` parameter
 
+<br>
+
+We can simplifiy it in this form
+
+```js
+    if(type=="image/svg+xml")
+    {
+        cards[id].type=type
+    }
+    else
+    {
+        cards[id].type="text/plain"
+    }
+
+    if(type=="image/svg+xml")
+    {
+        cards[id].content=IMAGES[svg || "heart"];
+    }
+    else
+    {
+        cards[id].content=content
+    }
+
+```
+
+<br>
+
 ### But the interesing part here is the comparison method of each part 
 
 It's clear now that we need to control the content and in the same time we need the type to be `image/svg+xml` but if we put it in type the application will get the content of the card from the IMAGES Object that we can't control so, let's take a look at the comparison part 
