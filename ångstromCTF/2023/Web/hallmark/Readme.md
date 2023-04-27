@@ -54,7 +54,7 @@
 
 <br>
 
-### You can see from the previous imgs that you can choose some shapes from the type list like [Heart,Cake,...etc]. and you can enter text only id you choosed `Custom Text`
+### You can see from the previous imgs that you can choose some shapes from the type list like [Heart,Cake,...etc]. and you can enter text only if you choosed `Custom Text`
 
 <br><br>
 
