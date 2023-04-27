@@ -83,9 +83,9 @@
 <br>
 
 ### The application following the REST api workflow :
-- GET  : view something
-- POST : add something
-- PUT  : edit something
+- GET  : View Card
+- POST : Add Card
+- PUT  : Edit Card
 - Delete : remove something
 
 ![image](https://user-images.githubusercontent.com/64314534/234554067-9fd25163-f06a-4309-be49-8cf67a596f15.png)
