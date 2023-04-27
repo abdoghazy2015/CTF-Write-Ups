@@ -25,7 +25,7 @@
 
 <br>
 
-### But as you see, it's filtered so i tried to see the request at burp suite 
+### But as you see, it seems to be filtered so i tried to see the request at burp suite 
 
 <br>
 
