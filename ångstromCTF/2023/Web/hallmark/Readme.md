@@ -140,7 +140,7 @@ if the value of type was `image/svg+xml`
 We can simplifiy it in this form
 
 ```js
-    if(type=="image/svg+xml")
+    if(type=="image/svg+xml") // for the type
     {
         cards[id].type=type
     }
@@ -149,7 +149,7 @@ We can simplifiy it in this form
         cards[id].type="text/plain"
     }
 
-    if(type=="image/svg+xml")
+    if(type==="image/svg+xml") // for the content 
     {
         cards[id].content=IMAGES[svg || "heart"];
     }
