@@ -5,7 +5,10 @@
 #### Our goal was clear: to login as admin since the flag is in admin.php and we need admin account to access it
  
 
-![image](https://github.com/abdoghazy2015/CTF-Write-Ups/assets/64314534/a2445e14-5945-4b6d-9600-130e5a35474a)
+ ![image](https://github.com/abdoghazy2015/CTF-Write-Ups/assets/64314534/a2445e14-5945-4b6d-9600-130e5a35474a)
+
+
+
 <h4>
 
 After reviewing the code We can find that login-admin.php can't be accessed from outside the localhost so, we cannot use it to login as admin
