@@ -7,7 +7,7 @@
 
 ![image](https://github.com/abdoghazy2015/CTF-Write-Ups/assets/64314534/a2445e14-5945-4b6d-9600-130e5a35474a)
 
-After reviewing the code We can find that login-admin.php can't be access from outside the localhost so, we cannot use it to login as admin
+After reviewing the code We can find that login-admin.php can't be accessed from outside the localhost so, we cannot use it to login as admin
 
 ![image](https://github.com/abdoghazy2015/CTF-Write-Ups/assets/64314534/824fd688-0158-4a90-ac7c-a0b52bd1b0df)
 
