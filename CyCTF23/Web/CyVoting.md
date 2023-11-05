@@ -63,10 +63,12 @@ this function is in crypto.php file and just passing our input to the encrypt fu
 
 <h4>
 then we can go to login.php and login with these creds. 
+
 `Àdmin:Fake_P@ssw0rd`
 
 And we can get our ecrypted flag from the html comments 
 </h4>
+
 ![image](https://github.com/abdoghazy2015/CTF-Write-Ups/assets/64314534/1d9ec2c4-b357-4f8a-8573-a15adf14b863)
 
 <h4> and we can use name parameter in vote.php to decrypt it. </h4>
