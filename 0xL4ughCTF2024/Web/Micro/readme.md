@@ -61,9 +61,9 @@ login with admin:admin and you will get the flag  :*
 
 The solution must be clear now, the player must bypass `Check_Admin`  function to pass the `admin:admin` creds to the internal API and get the flag.
 
-the bug here is the way who Flask and Php will handle the parameters if there is more than one parameter with the same name 
+the bug here is the way how Flask and Php will handle the parameters if there is more than one parameter with the same name 
 
-like :  parameter1=value1&parameter1=value2 &parameter1=value3
+like :  parameter1=value1&parameter1=value2&parameter1=value3
 
 php will take the last one and flask will take the first one 
 
