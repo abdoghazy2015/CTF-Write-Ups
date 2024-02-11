@@ -54,7 +54,7 @@ our Regex is vulnerable to Redos. it checks the pattern recursively one or (more
 
 Do you ever think if this (more) had a limit or not ?  : D
 
-yes, php functions hard a limit by default. if you run phpinfo() you will get it.
+yes, pcre php functions hard a limit by default. if you run phpinfo() you will get it.
 
 ![image-20240210172317503](./Simple_Waf.assets/image-20240210172317503.png)
 
