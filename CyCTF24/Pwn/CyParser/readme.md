@@ -2,7 +2,7 @@
 
 This is an easy Pwn challenge where the application performs some checks on the command-line arguments (`argv`). <br>
 If the user passes three arguments, the application crashes due to a bug in the code. <br>
-If the user passes two arguments, the application prints a leak of the `printf` function's address (a libc leak) and requests a Base64-encoded file for decoding.<br> The challenge contains an easy buffer overflow (BOF) vulnerability caused by an integer overflow in the size of the `read` operation.<br> Exploiting this BOF allows for a classic `ret2libc` attack.
+If the user passes two arguments, the application prints a leak of the `printf` function's address (a libc leak) and requests a Base64-encoded file content for decoding / parsing.<br> The challenge contains an easy buffer overflow (BOF) vulnerability caused by an integer overflow in the size of the `memcpy` operation.<br> Exploiting this BOF allows for a classic `ret2libc` attack.
 
 ---
 
