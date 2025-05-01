@@ -1,0 +1,200 @@
+#include "out.h"
+
+
+
+int _init(EVP_PKEY_CTX *ctx)
+
+{
+  int iVar1;
+  
+  iVar1 = __gmon_start__();
+  return iVar1;
+}
+
+
+
+void FUN_00101020(void)
+
+{
+  (*(code *)(undefined *)0x0)();
+  return;
+}
+
+
+
+void FUN_00101080(void)
+
+{
+  __cxa_finalize();
+  return;
+}
+
+
+
+// WARNING: Unknown calling convention -- yet parameter storage is locked
+
+int puts(char *__s)
+
+{
+  int iVar1;
+  
+  iVar1 = puts(__s);
+  return iVar1;
+}
+
+
+
+void __stack_chk_fail(void)
+
+{
+                    // WARNING: Subroutine does not return
+  __stack_chk_fail();
+}
+
+
+
+// WARNING: Unknown calling convention -- yet parameter storage is locked
+
+int setvbuf(FILE *__stream,char *__buf,int __modes,size_t __n)
+
+{
+  int iVar1;
+  
+  iVar1 = setvbuf(__stream,__buf,__modes,__n);
+  return iVar1;
+}
+
+
+
+void __isoc99_scanf(void)
+
+{
+  __isoc99_scanf();
+  return;
+}
+
+
+
+// WARNING: Unknown calling convention -- yet parameter storage is locked
+
+void exit(int __status)
+
+{
+                    // WARNING: Subroutine does not return
+  exit(__status);
+}
+
+
+
+void processEntry _start(undefined8 param_1,undefined8 param_2)
+
+{
+  undefined1 auStack_8 [8];
+  
+  __libc_start_main(main,param_2,&stack0x00000008,0,0,param_1,auStack_8);
+  do {
+                    // WARNING: Do nothing block with infinite loop
+  } while( true );
+}
+
+
+
+// WARNING: Removing unreachable block (ram,0x00101123)
+// WARNING: Removing unreachable block (ram,0x0010112f)
+
+void deregister_tm_clones(void)
+
+{
+  return;
+}
+
+
+
+// WARNING: Removing unreachable block (ram,0x00101164)
+// WARNING: Removing unreachable block (ram,0x00101170)
+
+void register_tm_clones(void)
+
+{
+  return;
+}
+
+
+
+void __do_global_dtors_aux(void)
+
+{
+  if (completed_0 != '\0') {
+    return;
+  }
+  FUN_00101080(__dso_handle);
+  deregister_tm_clones();
+  completed_0 = 1;
+  return;
+}
+
+
+
+void frame_dummy(void)
+
+{
+  register_tm_clones();
+  return;
+}
+
+
+
+void setup(void)
+
+{
+  setvbuf(stderr,(char *)0x0,2,0);
+  setvbuf(stdout,(char *)0x0,2,0);
+  setvbuf(stdin,(char *)0x0,2,0);
+  return;
+}
+
+
+
+void main(void)
+
+{
+  long in_FS_OFFSET;
+  int local_84;
+  undefined1 local_78;
+  char acStack_77 [103];
+  long local_10;
+  
+  local_10 = *(long *)(in_FS_OFFSET + 0x28);
+  setup();
+  puts("UAE x86-64 Internal Sandbox Service:");
+  puts("This should not be exposed publicly, please report it if you\'re able to.");
+  puts("Provide your code:");
+  __isoc99_scanf("%s[100]",&local_78);
+  local_84 = 0;
+  while( true ) {
+    if (99 < local_84) {
+      (*(code *)&local_78)();
+                    // WARNING: Subroutine does not return
+      exit(0);
+    }
+    if ((((&local_78)[local_84 + 1] == '\x05') && ((&local_78)[local_84] == '\x0f')) ||
+       (((&local_78)[local_84] == 's' && ((&local_78)[local_84] == 'h')))) break;
+    local_84 = local_84 + 1;
+  }
+  if (local_10 == *(long *)(in_FS_OFFSET + 0x28)) {
+    return;
+  }
+                    // WARNING: Subroutine does not return
+  __stack_chk_fail();
+}
+
+
+
+void _fini(void)
+
+{
+  return;
+}
+
+
+
