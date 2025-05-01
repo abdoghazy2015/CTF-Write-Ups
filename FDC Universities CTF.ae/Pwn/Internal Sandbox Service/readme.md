@@ -19,7 +19,7 @@ There are two methods to solve this challenge:
     The program contains a mistake that allows bypassing the validation. The application only checks the first 100 characters of the input, but you can insert any payload beyond this limit without restrictions.  
     This issue arises due to a syntax error in the `scanf` function.  
 
-    ![Validation Bug](image.png)
+    ![Validation Bug](image-1.png)
 
     It seems the author intended to limit `scanf` to the first 100 characters, but the syntax error caused this restriction to fail. As a result, you can use the first 100 characters as NOPs and safely place your shellcode afterward.
 
