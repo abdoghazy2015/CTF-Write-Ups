@@ -13,7 +13,7 @@ If the user passes two arguments, the application prints a leak of the `printf` 
 1. Prints the address of the `printf` function.
 2. Accepts up to 336 bytes of user input and validates if its length is divisible by 4 (`inp % 4 == 0`).
 3. Decodes the input using Base64 and validates that the first two bytes of the decoded content are equal to `"CY"`.
-4. Checks if the third byte of the decoded content is less than or equal to `0x20`.
+4. Checks if the third byte of the decoded content is less than or equal to `0x20` (We knew that this check is for the 3rd byte by debugging).
 5. Copies data from the decoded input to a `buffer[44]` using `memcpy`, with the length determined by the value of the third byte.
 
 ---
@@ -25,10 +25,10 @@ If the user passes two arguments, the application prints a leak of the `printf` 
 
     Use the leaked `printf` address to calculate the base address of libc:
 
-```py
-libc = ELF("./libc.so.6")
-libc.address = printf_leak - libc.symbols["printf"]
-```
+    ```py
+    libc = ELF("./libc.so.6")
+    libc.address = printf_leak - libc.symbols["printf"]
+    ```
     
     You can verify this address by attaching a debugger (e.g., GDB) to the process.
 
