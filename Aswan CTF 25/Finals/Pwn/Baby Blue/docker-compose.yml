@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  baby_blue:
+    build:
+      context: ./challenge
+    ports:
+      - "8083:8083"
+    restart: unless-stopped
