@@ -23,7 +23,7 @@ If the user passes two arguments, the application prints a leak of the `printf` 
 
 1. **Leaking the libc Address**
 
-    Use the leaked `printf` address to calculate the base address of libc:
+    Use the leaked `printf` address to calculate the base address of libc (leaked printf address - offset of printf in libc):
 
     ```py
     libc = ELF("./libc.so.6")
@@ -34,7 +34,7 @@ If the user passes two arguments, the application prints a leak of the `printf` 
 
 2. **Exploiting the Buffer Overflow**
 
-    The third byte of the decoded input is treated as an `unsigned __int8`, meaning its value ranges from 0 to 255. However, since `memcpy` uses `(3rd_byte - 1)` as the length, passing a value of `0` causes an integer underflow, resulting in a length of `255`.<br> This allows you to overflow the stack, control the return instruction pointer (RIP), and hijack the program's execution flow. The prefix of the payload should be `"CY\0"`.
+    The third byte of the decoded input is treated as an `unsigned __int8`, meaning its value ranges from 0 to 255.<br> However, since `memcpy` uses `(3rd_byte - 1)` as the length, passing a value of `0` causes an integer underflow, resulting in a length of `255`.<br> This allows you to overflow the stack, control the return instruction pointer (RIP), and hijack the program's execution flow.<br> The prefix of the payload should be `"CY\0"`.
 
 ---
 
@@ -44,10 +44,12 @@ With control over the RIP, you can construct a ROP chain to execute `system("/bi
 
 1. Prefix: `"CY\0"`.
 2. Padding: `"A" * 56` (to fill the buffer and overwrite the saved base pointer).
-3. ROP gadgets:
+3. ROP Chain:
     - A gadget to control the `rdi` register (first argument to `system`).
     - The address of `"/bin/sh\0"` in libc.
     - The address of a `ret` instruction (for stack alignment before the system call).
     - The address of the `system` function.
 
 By combining these components, you can achieve arbitrary code execution and spawn a shell.
+
+![alt text](image-1.png)
