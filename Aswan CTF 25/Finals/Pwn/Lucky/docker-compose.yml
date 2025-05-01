@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  lucky:
+    build:
+      context: ./challenge
+    ports:
+      - "8084:8083"
+    restart: unless-stopped
