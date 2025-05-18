@@ -1,0 +1,3 @@
+## Game of Yap - Pwn Challenge Solver
+
+**Important Note:** The `libc.so.6` version required for this challenge was not included in the provided challenge files (`chall.zip`). Initially, the exploit worked locally but failed to work remotely. To resolve this, I built a Docker container, extracted the correct `libc` binary from it, patched the binary accordingly, and recalculated the `libc` base address.
