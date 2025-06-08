@@ -56,6 +56,7 @@ The browser automatically continues parsing text as the `name` attribute value u
 2. **Iframe with Dangling Attribute**: Use malformed `name` attribute to capture the flag
 3. **Data URI**: Embed the script via base64-encoded data URI
 
+**we can use new line %0A to bypass the regex for =**
 ### Final Payload
 
 ```
